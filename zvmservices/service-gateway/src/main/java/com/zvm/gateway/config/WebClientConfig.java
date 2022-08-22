@@ -1,4 +1,4 @@
-package com.zvm.auth.config;
+package com.zvm.gateway.config;
 
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.context.annotation.Bean;

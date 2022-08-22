@@ -1,6 +1,7 @@
 package com.zvm.user.advice;
 
-import com.zmv.feature.dto.ExceptionDto;
+
+import com.zvm.user.dto.ExceptionDto;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;

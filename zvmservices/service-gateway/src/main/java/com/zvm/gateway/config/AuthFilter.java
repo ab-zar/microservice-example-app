@@ -1,6 +1,6 @@
-package com.zvm.auth.config;
+package com.zvm.gateway.config;
 
-import com.zvm.auth.dto.UserDto;
+import com.zvm.gateway.dto.UserDto;
 import org.springframework.cloud.gateway.filter.GatewayFilter;
 import org.springframework.cloud.gateway.filter.factory.AbstractGatewayFilterFactory;
 import org.springframework.http.HttpHeaders;

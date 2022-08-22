@@ -1,4 +1,4 @@
-package com.zvm.auth.dto;
+package com.zvm.gateway.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

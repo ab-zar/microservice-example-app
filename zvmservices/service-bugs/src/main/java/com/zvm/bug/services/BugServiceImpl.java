@@ -12,6 +12,9 @@ import com.zvm.clients.bug.TaskBugCheckResponse;
 import com.zvm.clients.task.TaskClient;
 import com.zvm.clients.task.TaskNotFoundException;
 import com.zvm.clients.task.TaskPresenceResponse;
+import com.zvm.clients.user.UserClient;
+import com.zvm.clients.user.UserNotFoundException;
+import com.zvm.clients.user.UserPresenceResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -25,12 +28,17 @@ public class BugServiceImpl implements BugService {
     private final BugRepository bugRepository;
     private final BugMapper mapper;
     private final TaskClient taskClient;
+    private final UserClient userClient;
 
     @Override
     public BugDto createBug(BugCreationRequest bugCreationRequest) {
         TaskPresenceResponse taskPresenceResponse = taskClient.isPresent(Integer.valueOf(bugCreationRequest.taskId()));
         if(!taskPresenceResponse.isPresent()){
-            throw new TaskNotFoundException("No such task!", HttpStatus.BAD_REQUEST);
+            throw new TaskNotFoundException("No such task!", HttpStatus.NOT_FOUND);
+        }
+        UserPresenceResponse userPresenceResponse = userClient.isPresent(Integer.valueOf(bugCreationRequest.createdByUserId()));
+        if(!userPresenceResponse.isPresent()){
+            throw new UserNotFoundException("No such user!", HttpStatus.NOT_FOUND);
         }
         Bug bug = Bug.builder()
                 .taskId(Integer.valueOf(bugCreationRequest.taskId()))
@@ -47,7 +55,7 @@ public class BugServiceImpl implements BugService {
     @Override
     public BugDto resolveBug(BugResolutionRequest bugResolutionRequest) {
         Bug bug = bugRepository.findById(Integer.valueOf(bugResolutionRequest.BugId()))
-                .orElseThrow(() -> new BugNotFoundException("No such bug!", HttpStatus.BAD_REQUEST));
+                .orElseThrow(() -> new BugNotFoundException("No such bug!", HttpStatus.NOT_FOUND));
         bug.setBugState(BugState.RESOLVED);
         bugRepository.saveAndFlush(bug);
         return mapper.toBugDto(bug);
@@ -56,7 +64,7 @@ public class BugServiceImpl implements BugService {
     @Override
     public BugDto getBugById(Integer bugId) {
         Bug bug = bugRepository.findById(bugId)
-                .orElseThrow(() -> new BugNotFoundException("No such bug!", HttpStatus.BAD_REQUEST));
+                .orElseThrow(() -> new BugNotFoundException("No such bug!", HttpStatus.NOT_FOUND));
         return mapper.toBugDto(bug);
     }
 
@@ -76,7 +84,7 @@ public class BugServiceImpl implements BugService {
     public boolean isResolved(Integer bugId) {
         boolean isResolved = false;
         Bug bug = bugRepository.findById(bugId)
-                .orElseThrow(() -> new BugNotFoundException("No such bug!", HttpStatus.BAD_REQUEST));
+                .orElseThrow(() -> new BugNotFoundException("No such bug!", HttpStatus.NOT_FOUND));
         if(bug.getBugState().equals(BugState.RESOLVED)){
             isResolved = true;
         }

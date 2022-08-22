@@ -1,6 +1,10 @@
 package com.zvm.bug.advice;
 
 import com.zvm.bug.dto.ExceptionDto;
+import com.zvm.clients.bug.BugNotFoundException;
+import com.zvm.clients.feature.FeatureNotFoundException;
+import com.zvm.clients.task.TaskNotFoundException;
+import com.zvm.clients.user.UserNotFoundException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;

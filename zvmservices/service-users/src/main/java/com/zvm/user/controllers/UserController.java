@@ -4,6 +4,7 @@ import com.zvm.clients.user.UserPresenceResponse;
 import com.zvm.user.dto.UserCreationRequest;
 import com.zvm.user.dto.UserDto;
 import com.zvm.user.services.UserService;
+
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 public record UserController(UserService userService) {
 
     @PostMapping
-    public ResponseEntity<UserDto> save(@RequestBody UserCreationRequest userCreationRequest) {
+    public ResponseEntity<UserDto> create(@RequestBody UserCreationRequest userCreationRequest) {
         return ResponseEntity.ok(userService.createUser(userCreationRequest));
     }
 
