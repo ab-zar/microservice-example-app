@@ -1,0 +1,44 @@
+server:
+  port: 8082
+
+#management:
+#  health:
+#    livenessState.enabled: true
+#    readinessState.enabled: true
+#  endpoint.health.probes.enabled: true
+
+spring:
+  application:
+    name: service-features
+
+  datasource:
+    username: 'zvm'
+    password: 'password'
+    url: jdbc:postgresql://localhost:5432/feature
+
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: 'true'
+    hibernate:
+      ddl-auto: create-drop
+    show-sql: 'true'
+
+  zipkin:
+    base-url: http://localhost:9411
+
+  jackson:
+    deserialization:
+      FAIL_ON_IGNORED_PROPERTIES: false
+    serialization:
+      INDENT_OUTPUT: false
+      WRITE_DATES_AS_TIMESTAMPS: false
+      WRITE_BIGDECIMAL_AS_PLAIN: true
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+    fetch-registry: true
+    register-with-eureka: true
