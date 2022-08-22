@@ -22,7 +22,7 @@ public record BugController(BugService bugService) {
         return ResponseEntity.ok(bugService.getAllBugs());
     }
 
-    @GetMapping("/{bugId}")
+    @GetMapping("/get/{bugId}")
     public ResponseEntity<BugDto> getBug(@PathVariable("bugId") Integer bugId) {
         return ResponseEntity.ok(bugService.getBugById(bugId));
     }

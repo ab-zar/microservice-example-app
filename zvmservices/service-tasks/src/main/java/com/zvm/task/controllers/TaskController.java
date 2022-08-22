@@ -18,7 +18,7 @@ import java.util.List;
 @RequestMapping("api/v1/tasks")
 public record TaskController(TaskService taskService) {
 
-    @GetMapping("/{taskId}")
+    @GetMapping("/get/{taskId}")
     public ResponseEntity<TaskDto> getTaskById(@PathVariable("taskId") Integer taskId) {
         return ResponseEntity.ok(taskService.getTaskById(taskId));
     }
