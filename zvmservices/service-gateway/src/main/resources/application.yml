@@ -17,6 +17,21 @@ spring:
       WRITE_BIGDECIMAL_AS_PLAIN: true
   cloud:
     gateway:
+      globalcors:
+        cors-configurations:
+          '[/**]':
+            allowedOrigins: "*"
+            allowedHeaders:
+              - "AUTHORIZATION"
+              - "CONTENT_TYPE"
+              - "ACCEPT"
+            allowedMEthods:
+              - GET
+              - POST
+              - PUT
+              - DELETE
+            maxAge: 3600
+            allowCredentials: false
       discovery:
         locator:
           enabled: true

@@ -2,7 +2,6 @@ package com.zvm.bug.services;
 
 import com.zvm.bug.dto.BugCreationRequest;
 import com.zvm.bug.dto.BugDto;
-import com.zvm.bug.dto.BugResolutionRequest;
 import com.zvm.bug.entities.Bug;
 import com.zvm.bug.enums.BugState;
 import com.zvm.bug.mappers.BugMapper;
@@ -53,8 +52,8 @@ public class BugServiceImpl implements BugService {
     }
 
     @Override
-    public BugDto resolveBug(BugResolutionRequest bugResolutionRequest) {
-        Bug bug = bugRepository.findById(Integer.valueOf(bugResolutionRequest.BugId()))
+    public BugDto resolveBug(Integer bugId) {
+        Bug bug = bugRepository.findById(bugId)
                 .orElseThrow(() -> new BugNotFoundException("No such bug!", HttpStatus.NOT_FOUND));
         bug.setBugState(BugState.RESOLVED);
         bugRepository.saveAndFlush(bug);

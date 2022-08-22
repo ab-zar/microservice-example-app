@@ -44,12 +44,14 @@ public class UserServiceImpl implements UserService {
     @Override
     public Boolean isPresent(Integer userId) {
         Boolean isPresent = userRepository.existsById(userId);
+        log.info("Checking user existence user isPresent - {}", isPresent);
         return isPresent;
     }
 
     @Override
     public UserDto createUser(UserCreationRequest userCreationRequest) {
         if(userRepository.findByLogin(userCreationRequest.login()).isPresent()){
+            log.error("User with login {} is already in database", userCreationRequest.login());
             throw new ApplicationException("User is already in database", HttpStatus.BAD_REQUEST);
         }
         ApplicationUser user = ApplicationUser.builder()
@@ -57,6 +59,7 @@ public class UserServiceImpl implements UserService {
                 .password(passwordEncoder.encode(CharBuffer.wrap(userCreationRequest.password())))
                 .userRole(UserRole.valueOf(userCreationRequest.role()))
                 .build();
+        log.info("New user is created {}", user.getLogin());
         userRepository.saveAndFlush(user);
         return userMapper.toUserDto(user);
     }
@@ -65,6 +68,7 @@ public class UserServiceImpl implements UserService {
     public UserDto getUser(Integer userId) {
         ApplicationUser user = userRepository.findById(userId)
                 .orElseThrow(() -> new UserNotFoundException("No such user!", HttpStatus.NOT_FOUND));
+        log.info("User {} is retrieved from database", user.getLogin());
         return userMapper.toUserDto(user);
     }
 
@@ -73,7 +77,10 @@ public class UserServiceImpl implements UserService {
         ApplicationUser user = userRepository.findByLogin(credentialsDto.login())
                 .orElseThrow(() -> new UserNotFoundException("User not found!", HttpStatus.NOT_FOUND));
 
+        log.info("User {} is retrieved by login from database", user.getLogin());
+
         if(!passwordEncoder.matches(CharBuffer.wrap(credentialsDto.password()), user.getPassword())){
+            log.error("User {} password doesn't match", user.getLogin());
             throw new ApplicationException("Invalid password", HttpStatus.BAD_REQUEST);
         }
 

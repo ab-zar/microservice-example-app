@@ -6,6 +6,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 @FeignClient("service-users")
 public interface UserClient {
-    @GetMapping("api/v1/users/isPresent/{userId}")
+    @GetMapping("api/v1/users/{userId}/isPresent")
     UserPresenceResponse isPresent(@PathVariable("userId") Integer userId);
 }

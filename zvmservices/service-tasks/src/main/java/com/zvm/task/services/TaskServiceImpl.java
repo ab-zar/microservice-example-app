@@ -13,7 +13,6 @@ import com.zvm.clients.user.UserPresenceResponse;
 import com.zvm.task.dto.TaskAssignmentRequest;
 import com.zvm.task.dto.TaskCreationRequest;
 import com.zvm.task.dto.TaskDto;
-import com.zvm.task.dto.TaskResolutionRequest;
 import com.zvm.task.entities.Task;
 import com.zvm.task.enums.TaskState;
 import com.zvm.task.mappers.TaskMapper;
@@ -99,8 +98,8 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
-    public TaskDto resolve(TaskResolutionRequest taskResolutionRequest) {
-        Task task = taskRepository.findById(Integer.valueOf(taskResolutionRequest.taskId()))
+    public TaskDto resolve(Integer taskId) {
+        Task task = taskRepository.findById(taskId)
                 .orElseThrow(() -> new TaskNotFoundException("No such task!", HttpStatus.BAD_REQUEST));
         task.setTaskState(TaskState.RESOLVED);
         taskRepository.saveAndFlush(task);
@@ -151,6 +150,7 @@ public class TaskServiceImpl implements TaskService {
         Task task = taskRepository.findById(taskId)
                 .orElseThrow(() -> new TaskNotFoundException("No such task!", HttpStatus.BAD_REQUEST));
         task.setTaskState(TaskState.IN_PROGRESS);
+        taskRepository.saveAndFlush(task);
         return taskMapper.toTaskDto(task);
     }
 
@@ -163,6 +163,7 @@ public class TaskServiceImpl implements TaskService {
             throw new IllegalStateException("Task has bugs to resolve!");
         }
         task.setTaskState(TaskState.COMPLETED);
+        taskRepository.saveAndFlush(task);
         return taskMapper.toTaskDto(task);
     }
 

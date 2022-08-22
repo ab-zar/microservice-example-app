@@ -19,37 +19,43 @@ public record BugController(BugService bugService) {
 
     @GetMapping
     public ResponseEntity<List<BugDto>> getAllBugs() {
+        log.info("Getting all bugs");
         return ResponseEntity.ok(bugService.getAllBugs());
     }
 
-    @GetMapping("/get/{bugId}")
+    @GetMapping("/{bugId}/get")
     public ResponseEntity<BugDto> getBug(@PathVariable("bugId") Integer bugId) {
+        log.info("Getting a bug by id {}", bugId);
         return ResponseEntity.ok(bugService.getBugById(bugId));
     }
 
-    @GetMapping("/isResolved/{bugId}")
+    @GetMapping("/{bugId}/isResolved")
     public BugCheckResponse isResolved(@PathVariable("bugId") Integer bugId) {
-        boolean isResolved = bugService.isResolved(bugId);
-        return new BugCheckResponse(isResolved);
+        log.info("Checking is bug {} is resolved", bugId);
+        return new BugCheckResponse(bugService.isResolved(bugId));
     }
 
-    @GetMapping("/task/{taskId}")
+    @GetMapping("/task/{taskId}/getBugs")
     public ResponseEntity<List<BugDto>> getBugsOfTask(@PathVariable("taskId") Integer taskId) {
+        log.info("Getting all bugs of task {}", taskId);
         return ResponseEntity.ok(bugService.getBugsOfTask(taskId));
     }
 
-    @GetMapping("/task/check/{taskId}")
+    @GetMapping("/task/{taskId}/check")
     public TaskBugCheckResponse hasBug(@PathVariable("taskId") Integer taskId) {
+        log.info("Checking if task {} has bugs", taskId);
         return bugService.hasBug(taskId);
     }
 
     @PostMapping("/create")
     public ResponseEntity<BugDto> createBug(@RequestBody BugCreationRequest bugCreationRequest) {
+        log.info("Creating a bug {}", bugCreationRequest);
         return ResponseEntity.ok(bugService.createBug(bugCreationRequest));
     }
 
-    @PostMapping("/resolve")
-    public ResponseEntity<BugDto> resolveBug(@RequestBody BugResolutionRequest bugResolutionRequest) {
-        return ResponseEntity.ok(bugService.resolveBug(bugResolutionRequest));
+    @PostMapping("/{bugId}/resolve")
+    public ResponseEntity<BugDto> resolveBug(@PathVariable("bugId") Integer bugId) {
+        log.info("Resolving a bug {}", bugId);
+        return ResponseEntity.ok(bugService.resolveBug(bugId));
     }
 }

@@ -6,9 +6,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 @FeignClient("service-tasks")
 public interface TaskClient {
-    @GetMapping(path = "api/v1/tasks/isPresent/{taskId}")
+    @GetMapping(path = "api/v1/tasks/{taskId}/isPresent")
     TaskPresenceResponse isPresent(@PathVariable("taskId") Integer taskId);
 
-    @GetMapping("api/v1/tasks/check/feature/{featureId}")
+    @GetMapping("api/v1/tasks/feature/{featureId}/check")
     public FeatureTasksCompletionResponse isFeatureComplete(@PathVariable("featureId") Integer featureId);
 }

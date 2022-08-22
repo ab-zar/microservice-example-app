@@ -2,7 +2,6 @@ package com.zvm.bug.services;
 
 import com.zvm.bug.dto.BugCreationRequest;
 import com.zvm.bug.dto.BugDto;
-import com.zvm.bug.dto.BugResolutionRequest;
 import com.zvm.clients.bug.TaskBugCheckResponse;
 
 import java.util.List;
@@ -10,7 +9,7 @@ import java.util.List;
 public interface BugService {
     BugDto createBug(BugCreationRequest bugCreationRequest);
 
-    BugDto resolveBug(BugResolutionRequest bugResolutionRequest);
+    BugDto resolveBug(Integer bugId);
 
     BugDto getBugById(Integer bugId);
 

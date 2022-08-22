@@ -4,7 +4,6 @@ import com.zvm.clients.task.FeatureTasksCompletionResponse;
 import com.zvm.task.dto.TaskAssignmentRequest;
 import com.zvm.task.dto.TaskCreationRequest;
 import com.zvm.task.dto.TaskDto;
-import com.zvm.task.dto.TaskResolutionRequest;
 
 import java.util.List;
 
@@ -21,7 +20,7 @@ public interface TaskService {
 
     TaskDto assignToTester(TaskAssignmentRequest taskAssignmentRequest);
 
-    TaskDto resolve(TaskResolutionRequest taskResolutionRequest);
+    TaskDto resolve(Integer taskId);
 
     List<TaskDto> getAllResolvedTasks();
 

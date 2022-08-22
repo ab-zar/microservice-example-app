@@ -6,6 +6,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 @FeignClient("service-features")
 public interface FeatureClient {
-    @GetMapping("api/v1/features/isPresent/{featureId}")
+    @GetMapping("api/v1/features/{featureId}/isPresent")
     FeaturePresenceResponse isPresent(@PathVariable("featureId") Integer featureId);
 }

@@ -19,13 +19,15 @@ public record UserController(UserService userService) {
         return ResponseEntity.ok(userService.createUser(userCreationRequest));
     }
 
-    @GetMapping("/get/{userId}")
+    @GetMapping("/{userId}/get")
     public ResponseEntity<UserDto> getUser(@PathVariable("userId") Integer userId) {
+        log.info("Retrieving user userId {}", userId);
         return ResponseEntity.ok(userService.getUser(userId));
     }
 
-    @GetMapping("/isPresent/{userId}")
+    @GetMapping("/{userId}/isPresent")
     public UserPresenceResponse isPresent(@PathVariable("userId") Integer userId) {
+        log.info("User existence check by userId {}", userId);
         return new UserPresenceResponse(userService.isPresent(userId));
     }
 
