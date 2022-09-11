@@ -1,0 +1,14 @@
+/Users/samnit4q/Documents/zv-git/microservice-example-app/zvmservices/service-tasks/src/main/java/com/zvm/task/entities/Task.java
+/Users/samnit4q/Documents/zv-git/microservice-example-app/zvmservices/service-tasks/src/main/java/com/zvm/task/services/TaskServiceImpl.java
+/Users/samnit4q/Documents/zv-git/microservice-example-app/zvmservices/service-tasks/src/main/java/com/zvm/task/dto/TaskAssignmentRequest.java
+/Users/samnit4q/Documents/zv-git/microservice-example-app/zvmservices/service-tasks/src/main/java/com/zvm/task/repositries/TaskRepository.java
+/Users/samnit4q/Documents/zv-git/microservice-example-app/zvmservices/service-tasks/src/main/java/com/zvm/task/services/TaskService.java
+/Users/samnit4q/Documents/zv-git/microservice-example-app/zvmservices/service-tasks/src/main/java/com/zvm/task/dto/TaskResolutionRequest.java
+/Users/samnit4q/Documents/zv-git/microservice-example-app/zvmservices/service-tasks/src/main/java/com/zvm/task/enums/TaskState.java
+/Users/samnit4q/Documents/zv-git/microservice-example-app/zvmservices/service-tasks/src/main/java/com/zvm/task/TaskApplication.java
+/Users/samnit4q/Documents/zv-git/microservice-example-app/zvmservices/service-tasks/src/main/java/com/zvm/task/dto/TaskCreationRequest.java
+/Users/samnit4q/Documents/zv-git/microservice-example-app/zvmservices/service-tasks/src/main/java/com/zvm/task/mappers/TaskMapper.java
+/Users/samnit4q/Documents/zv-git/microservice-example-app/zvmservices/service-tasks/src/main/java/com/zvm/task/dto/ExceptionDto.java
+/Users/samnit4q/Documents/zv-git/microservice-example-app/zvmservices/service-tasks/src/main/java/com/zvm/task/controllers/TaskController.java
+/Users/samnit4q/Documents/zv-git/microservice-example-app/zvmservices/service-tasks/src/main/java/com/zvm/task/dto/TaskDto.java
+/Users/samnit4q/Documents/zv-git/microservice-example-app/zvmservices/service-tasks/src/main/java/com/zvm/task/advice/RestResponseExceptionHandler.java

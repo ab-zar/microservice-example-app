@@ -35,8 +35,99 @@ services:
     ports:
       - "9411:9411"
 
+  service-discovery:
+    image: azbulatovich/service-discovery:latest
+    container_name: service-discovery
+    ports:
+      - "8761:8761"
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+    networks:
+      - spring
+    depends_on:
+      - zipkin
+
+  service-gateway:
+    image: azbulatovich/service-gateway:latest
+    container_name: service-gateway
+    ports:
+      - "8080:8080"
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+    networks:
+      - spring
+    depends_on:
+      - zipkin
+      - service-discovery
+
+  service-users:
+    image: azbulatovich/service-users:latest
+    container_name: service-users
+    ports:
+      - "8081:8081"
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+    networks:
+      - spring
+      - postgres
+    depends_on:
+      - zipkin
+      - postgres
+      - service-discovery
+      - service-gateway
+
+  service-features:
+    image: azbulatovich/service-features:latest
+    container_name: service-features
+    ports:
+      - "8082:8082"
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+    networks:
+      - spring
+      - postgres
+    depends_on:
+      - zipkin
+      - postgres
+      - service-discovery
+      - service-gateway
+
+  service-tasks:
+    image: azbulatovich/service-tasks:latest
+    container_name: service-tasks
+    ports:
+      - "8083:8083"
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+    networks:
+      - spring
+      - postgres
+    depends_on:
+      - zipkin
+      - postgres
+      - service-discovery
+      - service-gateway
+
+  service-bugs:
+    image: azbulatovich/service-bugs:latest
+    container_name: service-bugs
+    ports:
+      - "8084:8084"
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+    networks:
+      - spring
+      - postgres
+    depends_on:
+      - zipkin
+      - postgres
+      - service-discovery
+      - service-gateway
+
 networks:
   postgres:
+    driver: bridge
+  spring:
     driver: bridge
 
 volumes:

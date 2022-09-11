@@ -1,0 +1,81 @@
+server:
+  port: 8080
+
+management:
+  endpoint.gateway.enabled: true
+  endpoints.web.exposure.include: gateway
+
+spring:
+  application:
+    name: service-gateway
+  jackson:
+    deserialization:
+      FAIL_ON_IGNORED_PROPERTIES: false
+    serialization:
+      INDENT_OUTPUT: false
+      WRITE_DATES_AS_TIMESTAMPS: false
+      WRITE_BIGDECIMAL_AS_PLAIN: true
+  cloud:
+    gateway:
+      globalcors:
+        cors-configurations:
+          '[/**]':
+            allowedOrigins: "*"
+            allowedHeaders:
+              - "AUTHORIZATION"
+              - "CONTENT_TYPE"
+              - "ACCEPT"
+            allowedMethods:
+              - GET
+              - POST
+              - PUT
+              - DELETE
+            maxAge: 3600
+            allowCredentials: false
+      discovery:
+        locator:
+          enabled: true
+      routes:
+        - id: service-users-id
+          uri: lb://service-users
+          predicates:
+            Path=/api/v1/users/**
+          filters:
+            - AuthFilter
+        - id: service-users-signUp
+          uri: lb://service-users
+          predicates:
+            Path=/api/v1/signUp
+        - id: service-users-singIn
+          uri: lb://service-users
+          predicates:
+            Path=/api/v1/signIn
+        - id: service-features-id
+          uri: lb://service-features
+          predicates:
+            Path=/api/v1/features/**
+          filters:
+            - AuthFilter
+        - id: service-tasks-id
+          uri: lb://service-tasks
+          predicates:
+            Path=/api/v1/tasks/**
+          filters:
+            - AuthFilter
+        - id: service-features-id
+          uri: lb://service-bugs
+          predicates:
+            Path=/api/v1/bugs/**
+          filters:
+            - AuthFilter
+
+  zipkin:
+    base-url: http://zipkin:9411
+
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://service-discovery:8761/eureka
+    fetch-registry: true
+    register-with-eureka: true

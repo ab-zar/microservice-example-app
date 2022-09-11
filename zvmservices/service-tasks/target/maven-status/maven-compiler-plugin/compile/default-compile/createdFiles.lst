@@ -1,0 +1,16 @@
+com/zvm/task/repositries/TaskRepository.class
+com/zvm/task/services/TaskService.class
+com/zvm/task/controllers/TaskController.class
+com/zvm/task/dto/TaskDto.class
+com/zvm/task/enums/TaskState.class
+com/zvm/task/dto/ExceptionDto.class
+com/zvm/task/advice/RestResponseExceptionHandler.class
+com/zvm/task/dto/TaskResolutionRequest.class
+com/zvm/task/dto/TaskCreationRequest.class
+com/zvm/task/dto/TaskAssignmentRequest.class
+com/zvm/task/entities/Task$TaskBuilder.class
+com/zvm/task/TaskApplication.class
+com/zvm/task/entities/Task.class
+com/zvm/task/mappers/TaskMapper.class
+com/zvm/task/mappers/TaskMapperImpl.class
+com/zvm/task/services/TaskServiceImpl.class
